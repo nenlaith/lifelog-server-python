@@ -69,4 +69,4 @@ target/
 .swagger-codegen/
 Dockerfile
 git_push.sh
-
+swagger_server/*/.__init__.py
