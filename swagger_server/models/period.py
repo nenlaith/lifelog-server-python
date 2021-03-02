@@ -1,16 +1,15 @@
-from sqlalchemy import Column, ColumnDefault
+from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import TSTZRANGE, VARCHAR, TEXT
 
 from swagger_server.models.element_base import ElementBase
 
 
 class Period(ElementBase):
-    __tablename__ = 'period'
     __mapper_args__ = {
-        'column_prefix': 'period_',
-        'polymorphic_on': 'period_type'
+        'polymorphic_on': __tablename__ + '_type',
+        'column_prefix': __tablename__ + '_'
     }
 
     range = Column(TSTZRANGE, nullable=False)
     type = Column(VARCHAR, nullable=False)
-    description = Column(TEXT, ColumnDefault(''))
+    description = Column(TEXT)

@@ -1900,7 +1900,7 @@ components:
             - meat
             - sauce
             - cereal
-          meal_description:
+          meal_name:
             type: string
             example: tomate
     Span:

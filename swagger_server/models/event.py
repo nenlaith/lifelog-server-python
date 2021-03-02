@@ -1,14 +1,14 @@
 from sqlalchemy import Column, ColumnDefault
 from sqlalchemy.dialects.postgresql import VARCHAR, TIMESTAMP
+
 from swagger_server.models.element_base import ElementBase
 import datetime
 
 
 class Event(ElementBase):
-    __tablename__ = 'event'
     __mapper_args__ = {
-        'column_prefix': 'event_',
-        'polymorphic_on': 'event_type'
+        'polymorphic_on': __tablename__ + '_type',
+        'column_prefix': __tablename__ + '_'
     }
 
     timestamp = Column(TIMESTAMP, ColumnDefault(datetime.datetime.now))
