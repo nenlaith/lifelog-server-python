@@ -63,9 +63,10 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-#swagger_codegen_craps
+#Codegen Swagger Crap
 .dockerignore
-Dockerfile
-git_push.sh
 .swagger-codegen-ignore
 .swagger-codegen/
+Dockerfile
+git_push.sh
+

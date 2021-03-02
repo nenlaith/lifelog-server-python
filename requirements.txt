@@ -1,7 +1,8 @@
 connexion == 2.6.0
 python_dateutil == 2.6.0
 setuptools >= 21.0.0
+SQLAlchemy
+marshmallow
+marshmallow-sqlalchemy
 Flask-SQLAlchemy
 flask-marshmallow
-marshmallow-sqlalchemy
-marshmallow

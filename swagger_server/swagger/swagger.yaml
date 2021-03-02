@@ -2,10 +2,10 @@ openapi: 3.0.1
 info:
   title: LifeLog
   contact:
-    email: example@gmail.com
+    email: muenier.elliott@gmail.com
   license:
     name: MIT
-    url: http://test.com
+    url: http://api.ellmue.dynv6.com/license
   version: 1.0.0
 servers:
 - url: https://api.ellmue.dynv6.com
@@ -1649,28 +1649,19 @@ components:
     Element:
       type: object
       properties:
-        element_type:
-          type: string
-          readOnly: true
-        element_uuid:
+        uuid:
           type: string
           format: uuid
           readOnly: true
-        element_created_at:
+        created_at:
           type: string
           format: date-time
           readOnly: true
-        element_updated_at:
+        updated_at:
           type: string
           format: date-time
           readOnly: true
       description: abstract schema for all elements
-      discriminator:
-        propertyName: type
-        mapping:
-          period: '#/components/schemas/Period'
-          event: '#/components/schemas/Event'
-          day_descriptor: '#/components/schemas/DayDescriptor'
     Period:
       description: abstract schema which inherit from Element for all elements that
         have start and finish timestamp.
@@ -1680,9 +1671,6 @@ components:
         - period_range
         type: object
         properties:
-          element_type:
-            type: string
-            default: period
           period_range:
             type: string
             example: '[2010-01-01 14:30, 2010-01-01 15:30]'
@@ -1710,9 +1698,6 @@ components:
         - event_timestamp
         type: object
         properties:
-          element_type:
-            type: string
-            default: event
           event_timestamp:
             type: string
             format: date-time
@@ -1735,9 +1720,6 @@ components:
         - day_descriptor_date
         type: object
         properties:
-          element_type:
-            type: string
-            default: day_descriptor
           day_descriptor_date:
             type: string
             format: date
@@ -1750,34 +1732,25 @@ components:
             mood: '#/components/schemas/Mood'
     Consumable:
       required:
-      - consumable_added_fat
-      - consumable_carbohydrate
+      - quantity
       properties:
-        consumable_type:
-          type: string
-          readOnly: true
-        consumable_added_fat:
+        added_fat:
           minimum: 0.0
           type: number
           format: float
           default: 0.0
-        consumable_carbohydrate:
+        carbohydrates:
           minimum: 0.0
           type: number
           description: quantity in [g] for 100g or 100mL
           format: float
           default: 0.0
-        consumable_quantity:
+        quantity:
           minimum: 0.0
           type: number
           description: quantity in [g] or [mL]
           format: float
       description: abstract schema for drinks and meals
-      discriminator:
-        propertyName: consumable_type
-        mapping:
-          liquid: '#/components/schemas/Drink'
-          solid: '#/components/schemas/Meal'
     Weigh:
       description: a weigh made during the day
       allOf:
@@ -1786,9 +1759,6 @@ components:
         - weigh_heaviness
         type: object
         properties:
-          event_type:
-            type: string
-            default: weigh
           weigh_heaviness:
             minimum: 0.0
             type: number
@@ -1804,9 +1774,6 @@ components:
         - pill_type
         type: object
         properties:
-          event_type:
-            type: string
-            default: pill
           pill_type:
             type: string
             example: vitamines
@@ -1822,12 +1789,6 @@ components:
         - drink_category
         type: object
         properties:
-          event_type:
-            type: string
-            default: drink
-          consumable_type:
-            type: string
-            default: liquid
           drink_category:
             type: string
             enum:
@@ -1843,9 +1804,6 @@ components:
         - workout_type
         type: object
         properties:
-          period_type:
-            type: string
-            default: workout
           workout_type:
             type: string
             enum:
@@ -1858,47 +1816,22 @@ components:
       description: sleeping period
       allOf:
       - $ref: '#/components/schemas/Period'
-      - type: object
-        properties:
-          period_type:
-            type: string
-            default: sleep
     Meditation:
       description: session of meditation
       allOf:
       - $ref: '#/components/schemas/Period'
-      - type: object
-        properties:
-          period_type:
-            type: string
-            default: meditation
     Read:
       description: read session during a day
       allOf:
       - $ref: '#/components/schemas/Period'
-      - type: object
-        properties:
-          period_type:
-            type: string
-            default: read
     Work:
       description: work session during a day
       allOf:
       - $ref: '#/components/schemas/Period'
-      - type: object
-        properties:
-          period_type:
-            type: string
-            default: work
     Watch:
       description: watching something during a day
       allOf:
       - $ref: '#/components/schemas/Period'
-      - type: object
-        properties:
-          period_type:
-            type: string
-            default: watch
     Mood:
       description: day descriptor of the meal state
       allOf:
@@ -1909,9 +1842,6 @@ components:
         - mood_description
         type: object
         properties:
-          day_descriptor_type:
-            type: string
-            default: mood
           mood_description:
             type: string
             example: tout va bien aujourd'hui
@@ -1934,9 +1864,6 @@ components:
         - blood_test_type
         type: object
         properties:
-          event_type:
-            type: string
-            default: blood_test
           blood_test_level:
             minimum: 0.0
             type: number
@@ -1960,12 +1887,6 @@ components:
         - meal_parent
         type: object
         properties:
-          event_type:
-            type: string
-            default: meal
-          consumable_type:
-            type: string
-            default: solid
           meal_parent:
             type: string
             format: uuid
@@ -1991,15 +1912,15 @@ components:
         span_events:
           type: array
           items:
-            $ref: '#/components/schemas/Event'
+            $ref: '#/components/schemas/EventResponse'
         span_day_descriptors:
           type: array
           items:
-            $ref: '#/components/schemas/DayDescriptor'
+            $ref: '#/components/schemas/DayDescriptorResponse'
         span_periods:
           type: array
           items:
-            $ref: '#/components/schemas/Period'
+            $ref: '#/components/schemas/PeriodResponse'
       description: all the events and periods from a date to a date with every
       example:
         span_range: '[2010-01-01, 2010-01-01]'
@@ -2012,6 +1933,30 @@ components:
         span_day_descriptors:
         - ""
         - ""
+    EventResponse:
+      discriminator:
+        propertyName: event_type
+      oneOf:
+      - $ref: '#/components/schemas/Weigh'
+      - $ref: '#/components/schemas/Pill'
+      - $ref: '#/components/schemas/Drink'
+      - $ref: '#/components/schemas/BloodTest'
+      - $ref: '#/components/schemas/Meal'
+    PeriodResponse:
+      discriminator:
+        propertyName: period_type
+      oneOf:
+      - $ref: '#/components/schemas/Workout'
+      - $ref: '#/components/schemas/Sleep'
+      - $ref: '#/components/schemas/Meditation'
+      - $ref: '#/components/schemas/Read'
+      - $ref: '#/components/schemas/Work'
+      - $ref: '#/components/schemas/Watch'
+    DayDescriptorResponse:
+      discriminator:
+        propertyName: day_descriptor_type
+      oneOf:
+      - $ref: '#/components/schemas/Mood'
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
