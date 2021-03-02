@@ -12,4 +12,4 @@ class Period(ElementBase):
 
     range = Column(TSTZRANGE, nullable=False)
     type = Column(VARCHAR, nullable=False)
-    description = Column(TEXT)
+    description = Column(TEXT, nullable=False)

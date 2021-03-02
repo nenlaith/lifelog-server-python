@@ -11,5 +11,5 @@ class Meal(Event):
         "column_prefix": __tablename__ + '_'
     }
 
-    description = Column(TEXT)
+    description = Column(TEXT, nullable=False)
     ingredients = relationship("MealIngredient")

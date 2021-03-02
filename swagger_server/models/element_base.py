@@ -7,8 +7,8 @@ import datetime
 
 class Element(object):
     @declared_attr
-    def __tablename__(self):
-        '_'.join(str.lower(string) for string in re.findall('[A-Z]+[a-z]+', self.__name__))
+    def __tablename__(cls):
+        return '_'.join(str.lower(string) for string in re.findall('[A-Z]+[a-z]+', cls.__name__))
 
     uuid = Column(UUID(as_uuid=True), ColumnDefault(uuid.uuid4), primary_key=True)
     created_at = Column(TIMESTAMP(timezone=True), ColumnDefault(datetime.datetime.now))
