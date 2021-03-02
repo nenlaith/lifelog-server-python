@@ -4,10 +4,10 @@
 from __future__ import absolute_import
 # import models into model package
 from swagger_server.models.blood_test import BloodTest
-from swagger_server.models.consumable import Consumable
+from swagger_server.models.consumable_mixin import Consumable
 from swagger_server.models.day_descriptor import DayDescriptor
 from swagger_server.models.drink import Drink
-from swagger_server.models.element import Element
+from swagger_server.models.element_base import Element
 from swagger_server.models.event import Event
 from swagger_server.models.meal import Meal
 from swagger_server.models.meditation import Meditation

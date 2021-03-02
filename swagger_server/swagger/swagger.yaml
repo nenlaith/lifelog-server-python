@@ -1922,17 +1922,6 @@ components:
           items:
             $ref: '#/components/schemas/PeriodResponse'
       description: all the events and periods from a date to a date with every
-      example:
-        span_range: '[2010-01-01, 2010-01-01]'
-        span_events:
-        - ""
-        - ""
-        span_periods:
-        - ""
-        - ""
-        span_day_descriptors:
-        - ""
-        - ""
     EventResponse:
       discriminator:
         propertyName: event_type
