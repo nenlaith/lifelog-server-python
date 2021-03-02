@@ -1,8 +1,18 @@
 import datetime
+from itertools import product
 
 import six
 import typing
 
+def get_parent_tablename_by_bases(classes):
+    return next((x.__tablename__ for x in classes if x.__name__ in ['Event', 'Period', 'DayDescriptor']), None)
+    # for iteration in product(enumerate(classes), ['Event', 'Period', 'DayDescriptor']):
+    #     if iteration[0][1].__name__ == iteration[1]:
+    #         return iteration[0][0]
+    # return -1
+
+def is_parent_table(classe):
+    return classe.__name__ in ['Event', 'Period', 'DayDescriptor']
 
 def _deserialize(data, klass):
     """Deserializes dict, list, str into an object.

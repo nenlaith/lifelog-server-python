@@ -1,8 +1,5 @@
-from swagger_server.models import Period
+from swagger_server.models.period import Period
 
 
 class Watch(Period):
-    __mapper_args__ = {
-        'polymorphic_identity': __tablename__,
-        'column_prefix': __tablename__ + '_'
-    }
+    pass

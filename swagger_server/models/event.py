@@ -1,15 +1,13 @@
-from sqlalchemy import Column, ColumnDefault
-from sqlalchemy.dialects.postgresql import VARCHAR, TIMESTAMP
-
-from swagger_server.models.element_base import ElementBase
 import datetime
 
+from sqlalchemy import Column, ColumnDefault, ForeignKey
+from sqlalchemy.dialects.postgresql import VARCHAR, TIMESTAMP, UUID
 
-class Event(ElementBase):
-    __mapper_args__ = {
-        'polymorphic_on': __tablename__ + '_type',
-        'column_prefix': __tablename__ + '_'
-    }
+from swagger_server.models.element_base import ElementBase
+from swagger_server.models.type_mixin import TypeMixin
+from swagger_server.models.uuid_mixin import UUIDMixin
 
+
+class Event(UUIDMixin, TypeMixin, ElementBase):
     timestamp = Column(TIMESTAMP, ColumnDefault(datetime.datetime.now))
-    type = Column(VARCHAR, nullable=False)
+    event_type = Column(VARCHAR, nullable=False)

@@ -2,14 +2,11 @@ from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import TSTZRANGE, VARCHAR, TEXT
 
 from swagger_server.models.element_base import ElementBase
+from swagger_server.models.type_mixin import TypeMixin
+from swagger_server.models.uuid_mixin import UUIDMixin
 
 
-class Period(ElementBase):
-    __mapper_args__ = {
-        'polymorphic_on': __tablename__ + '_type',
-        'column_prefix': __tablename__ + '_'
-    }
-
+class Period(UUIDMixin, TypeMixin, ElementBase):
     range = Column(TSTZRANGE, nullable=False)
-    type = Column(VARCHAR, nullable=False)
+    period_type = Column(VARCHAR, nullable=False)
     description = Column(TEXT, nullable=False)

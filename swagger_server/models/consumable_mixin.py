@@ -1,5 +1,5 @@
-from sqlalchemy.sql.schema import Column, ColumnDefault, CheckConstraint
 from sqlalchemy.dialects.postgresql import FLOAT
+from sqlalchemy.sql.schema import Column, ColumnDefault, CheckConstraint
 
 
 class ConsumableMixin(object):
