@@ -7,7 +7,7 @@ from swagger_server.models.element_base import ElementBase
 
 
 class MealIngredient(ElementBase, ConsumableMixin):
-    category = Column(ENUM('composite', 'dairy', 'vegetable', 'meat', 'sauce', 'cereal'), nullable=False)
+    ingredient_type = Column(ENUM('composite', 'dairy', 'vegetable', 'meat', 'sauce', 'cereal'), nullable=False)
     name = Column(VARCHAR, nullable=False)
     meal_uuid = Column(UUID(as_uuid=True), ForeignKey('meal.uuid', ondelete="CASCADE"))
     parent_uuid = Column(UUID(as_uuid=True), ForeignKey('meal_ingredient.uuid', ondelete="CASCADE"))
