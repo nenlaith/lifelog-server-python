@@ -4,5 +4,5 @@ setuptools >= 21.0.0
 SQLAlchemy
 marshmallow
 marshmallow-sqlalchemy
-Flask-SQLAlchemy
 flask-marshmallow
+psycopg2
